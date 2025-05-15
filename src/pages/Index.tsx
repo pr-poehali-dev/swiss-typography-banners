@@ -1,11 +1,72 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import React from 'react';
+import SwissBanner from '@/components/SwissBanner';
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4 color-black text-black">Добро пожаловать!</h1>
-        <p className="text-xl text-gray-600">тут будет отображаться ваш проект</p>
+    <div className="min-h-screen bg-swiss-gray py-12">
+      <div className="container mx-auto px-4 max-w-6xl">
+        <header className="mb-12 text-center">
+          <h1 className="font-montserrat text-4xl font-bold mb-4">Рекламные баннеры</h1>
+          <p className="font-sourceSans text-xl text-gray-600">
+            Швейцарский типографический стиль для дизайна интерьеров
+          </p>
+        </header>
+        
+        <div className="grid grid-cols-1 gap-12">
+          {/* Баннер 1 */}
+          <div className="bg-white shadow-lg">
+            <SwissBanner 
+              title="НОВЫЙ ВЗГЛЯД НА ДИЗАЙН ДОМА"
+              subtitle="Проект «BUSHEMY»"
+              squareMeters="80-250м²"
+              principles={["Свет", "Пространство", "Чистота"]}
+              phone1="8 900 232 45 54"
+              phone2="8 900 232 45 56"
+              website="houzz.interieroom.ru"
+              variant="standard"
+            />
+          </div>
+          
+          {/* Баннер 2 */}
+          <div className="bg-white shadow-lg">
+            <SwissBanner 
+              title="ИНТЕРЬЕР В СКАНДИНАВСКОМ СТИЛЕ"
+              subtitle="Проект «BUSHEMY»"
+              principles={["Комфорт", "Эстетика", "Простота"]}
+              phone1="8 900 232 45 54"
+              phone2="8 900 232 45 56"
+              website="houzz.interieroom.ru"
+              variant="standard"
+            />
+          </div>
+          
+          {/* Баннер 3 */}
+          <div className="bg-white shadow-lg">
+            <SwissBanner 
+              title="ИНТУИТИВНЫЙ ИНТЕРЬЕР – ДОМ, В КОТОРОМ ХОЧЕТСЯ ЖИТЬ"
+              subtitle="Проект «BUSHEMY»"
+              principles={["Минимализм", "Экологичность", "Комфорт", "Эстетика", "Простота", "Свет", "Пространство"]}
+              phone1="8 900 232 45 54"
+              phone2="8 900 232 45 56"
+              website="houzz.interieroom.ru"
+              variant="fullWidth"
+            />
+          </div>
+          
+          {/* Баннер 4 */}
+          <div className="bg-white shadow-lg">
+            <SwissBanner 
+              title="СКАНДИНАВСКАЯ ЖИЗНЬ"
+              subtitle="Проект «BUSHEMY»"
+              principles={["Минимализм", "Экологичность"]}
+              phone1="8 900 232 45 54"
+              phone2="8 900 232 45 56"
+              website="houzz.interieroom.ru"
+              variant="minimal"
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
