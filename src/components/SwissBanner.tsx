@@ -1,6 +1,5 @@
 
 import React from 'react';
-import QRCode from 'qrcode.react';
 
 interface SwissBannerProps {
   title: string;
@@ -11,7 +10,36 @@ interface SwissBannerProps {
   website: string;
   squareMeters?: string;
   variant?: 'standard' | 'fullWidth' | 'minimal';
+  customText?: string;
 }
+
+// QR код плейсхолдер, поскольку библиотека qrcode.react не установлена в проекте
+const QRCodePlaceholder: React.FC<{ value: string }> = ({ value }) => {
+  return (
+    <div className="flex flex-col items-center">
+      <div className="w-[120px] h-[120px] border-2 border-swiss-black bg-white flex flex-col items-center justify-center p-2">
+        <div className="grid grid-cols-5 grid-rows-5 gap-1 w-full h-full">
+          {/* Верхний левый угол */}
+          <div className="col-span-2 row-span-2 bg-black"></div>
+          {/* Верхний правый угол */}
+          <div className="col-start-4 col-span-2 row-span-2 bg-black"></div>
+          {/* Нижний левый угол */}
+          <div className="col-span-2 row-start-4 row-span-2 bg-black"></div>
+          {/* Центральный паттерн */}
+          <div className="col-start-3 row-start-3 bg-black"></div>
+          {/* Дополнительные битовые паттерны для создания иллюзии QR кода */}
+          <div className="col-start-3 row-start-1 bg-black"></div>
+          <div className="col-start-1 row-start-3 bg-black"></div>
+          <div className="col-start-5 row-start-3 bg-black"></div>
+          <div className="col-start-3 row-start-5 bg-black"></div>
+          <div className="col-start-5 row-start-1 bg-black"></div>
+          <div className="col-start-4 row-start-5 bg-black"></div>
+        </div>
+      </div>
+      <div className="text-xs mt-1 text-center font-sourceSans">QR: {value.slice(0, 16)}</div>
+    </div>
+  );
+};
 
 const SwissBanner: React.FC<SwissBannerProps> = ({
   title,
@@ -21,35 +49,52 @@ const SwissBanner: React.FC<SwissBannerProps> = ({
   phone2,
   website,
   squareMeters,
-  variant = 'standard'
+  variant = 'standard',
+  customText
 }) => {
+  // Настраиваем компоновку в зависимости от варианта
+  const isFullWidth = variant === 'fullWidth';
+  const isMinimal = variant === 'minimal';
+
   return (
-    <div className="relative bg-swiss-white border border-swiss-black overflow-hidden">
-      <div className={`grid ${variant === 'fullWidth' ? 'grid-cols-1' : 'grid-cols-12'} gap-0 min-h-[500px]`}>
-        {/* Left column - Swiss style grid */}
-        <div className={`${variant === 'fullWidth' ? 'col-span-1' : 'col-span-8'} p-8 flex flex-col justify-between relative`}>
+    <div className="relative bg-white border border-gray-900 overflow-hidden">
+      <div className={`grid ${isFullWidth ? 'grid-cols-1' : 'grid-cols-12'} gap-0 min-h-[400px]`}>
+        {/* Левая колонка - Швейцарская сетка */}
+        <div 
+          className={`
+            ${isFullWidth ? 'w-full' : 'col-span-8'} 
+            p-8 flex flex-col justify-between relative
+          `}
+        >
           <div className="flex flex-col gap-6">
-            {/* Title */}
-            <h1 className="font-montserrat text-4xl md:text-5xl font-bold tracking-tight">
+            {/* Заголовок */}
+            <h1 className="font-montserrat text-4xl md:text-5xl font-bold tracking-tight leading-tight">
               {title}
             </h1>
             
-            {/* Subtitle */}
+            {/* Подзаголовок */}
             <div className="pt-2">
               <p className="font-sourceSans text-lg tracking-wider uppercase">
                 {subtitle}
               </p>
             </div>
             
-            {/* Square meters if provided */}
+            {/* Площадь помещения, если указана */}
             {squareMeters && (
-              <div className="font-montserrat text-xl mt-4">
+              <div className="font-montserrat text-xl mt-2">
                 {squareMeters}
               </div>
             )}
             
-            {/* Design principles - Swiss style horizontal layout */}
-            <div className="mt-6">
+            {/* Дополнительный текст, если указан */}
+            {customText && (
+              <div className="font-sourceSans text-base mt-2">
+                {customText}
+              </div>
+            )}
+            
+            {/* Принципы дизайна - горизонтальная компоновка в швейцарском стиле */}
+            <div className="mt-4">
               <ul className="flex flex-wrap gap-x-6 gap-y-2">
                 {principles.map((principle, index) => (
                   <li key={index} className="font-sourceSans uppercase tracking-wide">
@@ -60,7 +105,7 @@ const SwissBanner: React.FC<SwissBannerProps> = ({
             </div>
           </div>
           
-          {/* Contact information - Swiss style bottom alignment */}
+          {/* Контактная информация - выравнивание по низу в швейцарском стиле */}
           <div className="mt-auto pt-8">
             <div className="grid grid-cols-2 gap-4">
               <div>
@@ -74,27 +119,31 @@ const SwissBanner: React.FC<SwissBannerProps> = ({
           </div>
         </div>
         
-        {/* Right column - Logo and QR code */}
-        <div className={`${variant === 'fullWidth' ? 'absolute top-8 right-8' : 'col-span-4'} p-8 flex flex-col justify-between items-end`}>
+        {/* Правая колонка - Логотип и QR-код */}
+        <div 
+          className={`
+            ${isFullWidth ? 'absolute top-8 right-8' : isMinimal ? 'col-span-4' : 'col-span-4'} 
+            p-8 flex flex-col justify-between items-end
+          `}
+        >
           <div className="logo-houzz mb-auto">
-            {/* Placeholder for houzz logo */}
-            <div className="h-10 w-28 bg-swiss-black text-swiss-white flex items-center justify-center">
+            {/* Плейсхолдер для логотипа houzz */}
+            <div className="h-10 w-28 bg-black text-white flex items-center justify-center">
               <span className="font-montserrat text-sm">Лого houzz</span>
             </div>
           </div>
           
           <div className="mt-auto">
-            <QRCode value={`https://${website}`} size={120} />
-            <p className="text-xs mt-2 text-right font-sourceSans">{website}</p>
+            <QRCodePlaceholder value={`https://${website}`} />
           </div>
         </div>
       </div>
       
-      {/* Swiss style decorative element - vertical line */}
-      <div className="absolute top-0 left-24 h-full w-[1px] bg-swiss-black opacity-10"></div>
+      {/* Декоративный элемент в швейцарском стиле - вертикальная линия */}
+      <div className="absolute top-0 left-24 h-full w-[1px] bg-black opacity-10"></div>
       
-      {/* Swiss style decorative element - horizontal line */}
-      <div className="absolute bottom-24 left-0 h-[1px] w-full bg-swiss-black opacity-10"></div>
+      {/* Декоративный элемент в швейцарском стиле - горизонтальная линия */}
+      <div className="absolute bottom-24 left-0 h-[1px] w-full bg-black opacity-10"></div>
     </div>
   );
 };

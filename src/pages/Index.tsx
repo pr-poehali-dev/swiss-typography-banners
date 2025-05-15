@@ -4,7 +4,7 @@ import SwissBanner from '@/components/SwissBanner';
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-swiss-gray py-12">
+    <div className="min-h-screen bg-gray-100 py-12">
       <div className="container mx-auto px-4 max-w-6xl">
         <header className="mb-12 text-center">
           <h1 className="font-montserrat text-4xl font-bold mb-4">Рекламные баннеры</h1>
@@ -33,6 +33,7 @@ const Index = () => {
             <SwissBanner 
               title="ИНТЕРЬЕР В СКАНДИНАВСКОМ СТИЛЕ"
               subtitle="Проект «BUSHEMY»"
+              customText="Разработаем дизайн под Вашу площадь"
               principles={["Комфорт", "Эстетика", "Простота"]}
               phone1="8 900 232 45 54"
               phone2="8 900 232 45 56"
@@ -46,6 +47,7 @@ const Index = () => {
             <SwissBanner 
               title="ИНТУИТИВНЫЙ ИНТЕРЬЕР – ДОМ, В КОТОРОМ ХОЧЕТСЯ ЖИТЬ"
               subtitle="Проект «BUSHEMY»"
+              customText="Принципы скандинавского дизайна:"
               principles={["Минимализм", "Экологичность", "Комфорт", "Эстетика", "Простота", "Свет", "Пространство"]}
               phone1="8 900 232 45 54"
               phone2="8 900 232 45 56"
@@ -59,6 +61,7 @@ const Index = () => {
             <SwissBanner 
               title="СКАНДИНАВСКАЯ ЖИЗНЬ"
               subtitle="Проект «BUSHEMY»"
+              customText="ДИЗАЙН С ЛЮБОВЬЮ К ДЕТАЛЯМ"
               principles={["Минимализм", "Экологичность"]}
               phone1="8 900 232 45 54"
               phone2="8 900 232 45 56"
